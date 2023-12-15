@@ -1,3 +1,4 @@
+"use client"; 
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -7,20 +8,31 @@ type UserAssessmentProps = {
   className?: string;
   assessment: AssessmentDTO;
 };
+
 export function UserAssessment({ className, assessment }: UserAssessmentProps) {
   const form = useForm<UserAssessmentDTO>();
   const { register, handleSubmit } = form;
 
   const [userNameConfirmed, setUserNameConfirmed] = useState(false);
-  function confirmUserName() {
-    setUserNameConfirmed(true);
-  }
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   useEffect(() => {
     setTimeout(function () {
       alert("assessment finalizado");
     }, assessment.durationInSeconds * 1000);
   }, [assessment.durationInSeconds]);
+
+  function confirmUserName() {
+    setUserNameConfirmed(true);
+  }
+
+  function handleNextQuestion() {
+    setCurrentQuestionIndex((prevIndex) => Math.min(prevIndex + 1, assessment.questions.length - 1));
+  }
+
+  function handlePreviousQuestion() {
+    setCurrentQuestionIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+  }
 
   function submitAssessment(formData: UserAssessmentDTO) {
     alert(JSON.stringify(formData, null, 2));
@@ -54,18 +66,38 @@ export function UserAssessment({ className, assessment }: UserAssessmentProps) {
         >
           Confirmar
         </button>
-        {userNameConfirmed ? (
+
+        {userNameConfirmed && (
           <>
-            <Assessment assessment={assessment} />
-            <button
-              type="submit"
-              className="bg-blue-600 p-1 inline-block text-gray-50"
-            >
-              Finalizar
-            </button>
+            <Assessment assessment={assessment} currentQuestionIndex={currentQuestionIndex} />
+            <div className="mt-4">
+              <button
+                type="button"
+                className="bg-blue-600 p-1 inline-block text-gray-50 mr-2"
+                onClick={handlePreviousQuestion}
+                disabled={currentQuestionIndex === 0}
+              >
+                Anterior
+              </button>
+              <button
+                type="button"
+                className="bg-blue-600 p-1 inline-block text-gray-50"
+                onClick={handleNextQuestion}
+                disabled={currentQuestionIndex === assessment.questions.length - 1}
+              >
+                Próxima
+              </button>
+            </div>
+
+            {currentQuestionIndex === assessment.questions.length - 1 && (
+              <button
+                type="submit"
+                className="bg-blue-600 p-1 inline-block text-gray-50 mt-4"
+              >
+                Finalizar
+              </button>
+            )}
           </>
-        ) : (
-          <div>Insira seu nome para iniciar o assessment.</div>
         )}
       </form>
     </FormProvider>

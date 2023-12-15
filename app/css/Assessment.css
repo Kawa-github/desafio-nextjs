@@ -1,0 +1,12 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.btn-assessment{
+    background-color:#A6F750;
+    color: black;
+    padding: 10px;
+    font-size: 14px;
+}
