@@ -1,0 +1,33 @@
+.top-home{
+    background: rgb(34,75,149);
+    background: linear-gradient(156deg, rgba(34,75,149,1) 30%, rgba(97,144,47,1) 93%); 
+}
+
+h5{
+    color: var(--bg-green);
+    font-size: 14px;
+}
+
+.txt-home{
+    font-size: 30px;
+    color: var(--txt-white)
+}
+
+.btn-assessment{
+    background-color: var(--bg-green);
+    color: black;
+    padding: 12px 10px;
+    font-size: 14px;
+}
+
+.table-home th{
+    color: #5E605F;
+}
+
+.table-home h1{
+    color: var(--txt-white);
+}
+
+tbody{
+    color: var(--txt-white);
+}

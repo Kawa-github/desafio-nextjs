@@ -1,0 +1,23 @@
+@import url("./Home.css");
+
+
+:root{
+    --bg-main: #181C23;
+    --bg-green: #A6F750;
+    --txt-white: #fff;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #181C23;
+}
+
+main{
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+}
